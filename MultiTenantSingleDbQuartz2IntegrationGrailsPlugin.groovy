@@ -1,5 +1,3 @@
-import org.quartz.JobExecutionContext
-import grails.plugin.quartz2.GrailsArtefactJob
 import grails.plugin.multitenantsingledbquartz2integration.*
 
 class MultiTenantSingleDbQuartz2IntegrationGrailsPlugin {
@@ -28,13 +26,6 @@ class MultiTenantSingleDbQuartz2IntegrationGrailsPlugin {
 
 	def doWithDynamicMethods = { ctx ->
 		def currentTenant = ctx.getBean('currentTenant')
-
-		def grailsArtefactJobMetaClass = GrailsArtefactJob.metaClass
-		def oldExecute = grailsArtefactJobMetaClass.getMetaMethod('execute', [JobExecutionContext] as Class[])
-		grailsArtefactJobMetaClass.execute = { JobExecutionContext jec ->
-			currentTenant.set(jec.mergedJobDataMap['grails-multi-tenant-single-db-tenant-id'])
-			oldExecute.invoke(jec)
-		}
 
 		application.jobClasses.each { jc ->
 			def oldMethod = jc.metaClass.getStaticMetaMethod('triggerNow', [Map] as Class[])
