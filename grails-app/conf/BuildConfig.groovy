@@ -18,7 +18,6 @@ grails.project.dependency.resolution = {
 		compile ':quartz2:2.1.6.2',
 				':multi-tenant-single-db:0.8.2',
 				":hibernate:$grailsVersion", {
-			export = false
 		}
 	}
 }
