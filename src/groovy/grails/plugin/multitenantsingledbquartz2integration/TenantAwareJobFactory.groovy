@@ -22,13 +22,17 @@ class TenantAwareJobFactory extends GrailsJobFactory {
 		final Job wrappedJob = super.newJob(bundle, scheduler)
 		return new Job() {
 			public void execute(final JobExecutionContext context) throws JobExecutionException {
-				Integer tenantId = context.getMergedJobDataMap().getIntValue("grails-multi-tenant-single-db-tenant-id")
+				Integer tenantId = getTenantId(context)
 				// TODO remove tenantId from the mergedJobData
 				multiTenantService.doWithTenantId tenantId, {
 					wrappedJob.execute(context)
 				}
 			}
 		};
+	}
+
+	static Integer getTenantId(context) {
+		context.mergedJobDataMap['grails-multi-tenant-single-db-tenant-id'] as Integer
 	}
 }
 
