@@ -1,7 +1,7 @@
 import grails.plugin.multitenantsingledbquartz2integration.*
 
 class MultiTenantSingleDbQuartz2IntegrationGrailsPlugin {
-	def version = '0.2'
+	def version = '0.3-SNAPSHOT'
 	def grailsVersion = "2.0 > *"
 	def pluginExcludes = ['grails-app/views/error.gsp']
 	def title = 'Multi Tenant Single Db Quartz2 Integration Plugin'
